@@ -35,7 +35,9 @@ type GuiConfig struct {
 }
 
 func main() {
-
+	
+	LoadConfig()
+	
 	// 0 5 0,6,12 * * ?
 	/*
 	2017/12/22 0:05:00
@@ -197,4 +199,15 @@ func LoadConfig(){
 	f.Truncate(0)
 	f.Seek(0,0)
 	f.Write([]byte(jsonStr))
+	
+	cmd := exec.Command("cmd.exe", "/c", "taskkill /f /im ShadowsocksR-dotnet4.0.exe")
+	err = cmd.Run()
+	if err != nil {
+		fmt.Println("ShadowsocksR-dotnet4.0.exe 关闭出错...............")
+	}
+	cmd = exec.Command("cmd.exe", "/c", "start ShadowsocksR-dotnet4.0.exe")
+	err = cmd.Run()
+	if err != nil {
+		fmt.Println("ShadowsocksR-dotnet4.0.exe 启动出错...............")
+	}
 }
